@@ -1385,7 +1385,7 @@ function calcAll() {
   document.getElementById('bar-reverse').style.width = (rev / 3 * 100) + '%';
 
   // ── Total ──
-  const total = Math.min(focus + basic + pro + resp + bonus + charm - rev, 103);
+  const total = focus + basic + pro + resp + bonus + charm - rev;
   const grade = getGrade(total);
   const gradeClass = getGradeClass(total);
 
@@ -1661,3 +1661,4 @@ calcAll();
 </script>
 </body>
 </html>
+

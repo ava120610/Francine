@@ -553,7 +553,7 @@
         <input type="text" placeholder="區課" id="district">
       </div>
       <div class="info-field">
-        <label>受評人員</label>
+        <label>查核人員</label>
         <input type="text" placeholder="姓名" id="inspector">
       </div>
       <div class="info-field">
@@ -561,7 +561,9 @@
         <select id="shift">
           <option value="">請選擇</option>
           <option>早班</option>
+          <option>中班</option>
           <option>晚班</option>
+          <option>大夜班</option>
         </select>
       </div>
     </div>
@@ -1236,9 +1238,10 @@
     </div>
   </div>
 
-  <button onclick="printPDF()" style="width:100%;padding:18px;background:linear-gradient(135deg,#e8001c,#c0001a);color:white;border:none;border-radius:12px;font-size:18px;font-weight:900;font-family:inherit;cursor:pointer;letter-spacing:2px;box-shadow:0 6px 20px rgba(232,0,28,0.4);margin-bottom:10px;transition:transform 0.15s">🖨️ 儲存為 PDF</button>
+  <button onclick="submitToGoogleForm()" style="width:100%;padding:18px;background:linear-gradient(135deg,#007233,#00a04e);color:white;border:none;border-radius:12px;font-size:18px;font-weight:900;font-family:inherit;cursor:pointer;letter-spacing:2px;box-shadow:0 6px 20px rgba(0,114,51,0.4);margin-bottom:10px;transition:transform 0.15s">📤 送出評分結果</button>
+  <button onclick="printPDF()" style="width:100%;padding:14px;background:linear-gradient(135deg,#e8001c,#c0001a);color:white;border:none;border-radius:12px;font-size:15px;font-weight:900;font-family:inherit;cursor:pointer;letter-spacing:2px;box-shadow:0 4px 14px rgba(232,0,28,0.35);margin-bottom:10px;transition:transform 0.15s">🖨️ 儲存為 PDF</button>
   <div style="background:#fff8e1;border:1.5px solid #f5a623;border-radius:8px;padding:10px 14px;font-size:12px;color:#7a4f00;line-height:1.7;margin-bottom:10px">
-    📌 <strong>操作步驟：</strong>按下按鈕後，在列印視窗中<br>
+    📌 <strong>儲存PDF步驟：</strong>按下按鈕後，在列印視窗中<br>
     ① 目的地（印表機）選擇 <strong>「另存為 PDF」</strong><br>
     ② 按「儲存」即可下載 PDF 檔案
   </div>
@@ -1564,6 +1567,82 @@ function printPDF() {
   // Expand all sections before printing
   document.querySelectorAll('.section').forEach(s => s.classList.remove('collapsed'));
   setTimeout(() => window.print(), 150);
+}
+
+// ── 送出到 Google 表單 ──
+function submitToGoogleForm() {
+  // 檢查必填欄位
+  const district  = document.getElementById('district').value.trim();
+  const storeName = document.getElementById('storeName').value.trim();
+  const storeNum  = document.getElementById('storeNum').value.trim();
+  const checkDate = document.getElementById('checkDate').value.trim();
+  const inspector = document.getElementById('inspector').value.trim();
+
+  if (!district || !storeName || !storeNum || !checkDate || !inspector) {
+    showToast('⚠️ 請先填寫：區課、門市、店號、查核日期、受評人員');
+    return;
+  }
+
+  const focusScore    = document.getElementById('score-focus').textContent;
+  const basicScore    = document.getElementById('score-basic').textContent;
+  const proScore      = document.getElementById('score-pro').textContent;
+  const responseScore = document.getElementById('score-response').textContent;
+  const bonusScore    = document.getElementById('score-bonus').textContent;
+  const charmScore    = document.getElementById('score-charm').textContent;
+  const reverseScore  = document.getElementById('score-reverse').textContent;
+  const totalScore    = document.getElementById('totalScoreDisp').textContent;
+  const grade         = document.getElementById('totalGradeDisp').textContent;
+
+  const FORM_ID = '1FAIpQLSek3oHP8AQIvy7gzTKGgrmB7WaVxc5Jl2oJDT0wxYEq0RhNJQ';
+  const BASE_URL = `https://docs.google.com/forms/d/e/${FORM_ID}/formResponse`;
+
+  const params = new URLSearchParams({
+    'entry.1306461473': district,
+    'entry.681393931':  storeName,
+    'entry.533142653':  storeNum,
+    'entry.466396117':  checkDate,
+    'entry.243941986':  inspector,
+    'entry.818420060':  focusScore,
+    'entry.1924481342': basicScore,
+    'entry.985669071':  proScore,
+    'entry.1841849396': responseScore,
+    'entry.623560120':  bonusScore,
+    'entry.816760376':  charmScore,
+    'entry.1321838015': reverseScore,
+    'entry.149225633':  totalScore,
+    'entry.873316982':  grade,
+  });
+
+  // 用隱藏 iframe 送出（避免跳頁）
+  let iframe = document.getElementById('gform-iframe');
+  if (!iframe) {
+    iframe = document.createElement('iframe');
+    iframe.id = 'gform-iframe';
+    iframe.name = 'gform-iframe';
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+  }
+
+  const form = document.createElement('form');
+  form.method = 'POST';
+  form.action = BASE_URL;
+  form.target = 'gform-iframe';
+
+  params.forEach((value, key) => {
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = key;
+    input.value = value;
+    form.appendChild(input);
+  });
+
+  document.body.appendChild(form);
+  form.submit();
+  document.body.removeChild(form);
+
+  setTimeout(() => {
+    showToast('✅ 評分結果已送出到 Google 表單！');
+  }, 800);
 }
 
 // Initialize

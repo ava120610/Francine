@@ -538,7 +538,7 @@
       </div>
       <div class="info-field">
         <label>營運部</label>
-        <input type="text" placeholder="營運部" id="dept">
+        <input type="text" id="dept" value="桃竹二營運部" readonly style="background:#e8f5e9;color:#007233;font-weight:700;cursor:default">
       </div>
       <div class="info-field">
         <label>查核日期</label>
@@ -550,11 +550,23 @@
       </div>
       <div class="info-field">
         <label>區課</label>
-        <input type="text" placeholder="區課" id="district">
+        <select id="district">
+          <option value="">請選擇區課</option>
+          <option>龍潭區</option>
+          <option>楊新區</option>
+          <option>竹東區</option>
+          <option>竹北區</option>
+          <option>新竹區</option>
+          <option>竹科區</option>
+          <option>竹南區</option>
+          <option>苗栗區</option>
+          <option>豐原區</option>
+          <option>大岡區</option>
+        </select>
       </div>
       <div class="info-field">
         <label>受評人員</label>
-        <input type="text" placeholder="姓名" id="inspector">
+        <input type="text" placeholder="受評人員姓名" id="inspector">
       </div>
       <div class="info-field">
         <label>班別</label>
@@ -1515,7 +1527,7 @@ function showReportModal() {
 門市：${storeName}（店號：${storeNum}）
 營運部：${dept}　區課：${district}
 查核日期：${checkDate}　班別：${shift}
-查核人員：${inspector}
+受評人員：${inspector}
 
 【各項目得分】
 ${scoreLines}

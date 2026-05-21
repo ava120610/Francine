@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>7-ELEVEn 門市優質服務評分表 2026年</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Oswald:wght@600&display=swap');
+
+  :root {
+    --green: #007233;
+    --green-light: #00a04e;
+    --red: #e8001c;
+    --orange: #f5a623;
+    --white: #ffffff;
+    --off-white: #f7f7f5;
+    --light-gray: #ebebeb;
+    --mid-gray: #c8c8c8;
+    --text: #1a1a1a;
+    --text-light: #555;
+    --border: #d0d0d0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: var(--off-white);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--green);
+    color: white;
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+  }
+  .header-top {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 24px;
+  }
+  .logo {
+    font-family: 'Oswald', sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--orange);
+    letter-spacing: 2px;
+    white-space: nowrap;
+  }
+  .header-title {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .header-score-bar {
+    background: rgba(0,0,0,0.2);
+    padding: 8px 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 13px;
+  }
+  .live-score {
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--orange);
+  }
+  .grade-badge {
+    padding: 3px 14px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 2px;
+    transition: all 0.3s;
+  }
+  .grade-Aplus { background: #ffd700; color: #1a1a1a; }
+  .grade-A { background: #00c851; color: white; }
+  .grade-B { background: #33b5e5; color: white; }
+  .grade-C { background: var(--orange); color: white; }
+  .grade-Z { background: var(--red); color: white; }
+
+  /* MAIN */
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 24px 16px 60px;
+  }
+
+  /* STORE INFO */
+  .store-info-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    border-left: 5px solid var(--green);
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .info-field label {
+    display: block;
+    font-size: 11px;
+    color: var(--text-light);
+    margin-bottom: 4px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+  .info-field input, .info-field select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 13px;
+    transition: border-color 0.2s;
+    background: var(--off-white);
+  }
+  .info-field input:focus, .info-field select:focus {
+    outline: none;
+    border-color: var(--green);
+    background: white;
+  }
+
+  /* SECTION */
+  .section {
+    background: white;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    overflow: hidden;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s;
+  }
+  .section-header:hover { background: var(--off-white); }
+  .section-tag {
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+  .tag-focus { background: var(--red); color: white; }
+  .tag-basic { background: var(--green); color: white; }
+  .tag-pro { background: #4a90d9; color: white; }
+  .tag-response { background: #9b59b6; color: white; }
+  .tag-bonus { background: var(--orange); color: white; }
+  .tag-charm { background: #e74c3c; color: white; }
+  .tag-reverse { background: #2c3e50; color: white; }
+
+  .section-title { font-weight: 700; font-size: 14px; flex: 1; }
+  .section-score-display {
+    font-size: 13px;
+    color: var(--text-light);
+    white-space: nowrap;
+  }
+  .section-score-current { font-size: 18px; font-weight: 900; color: var(--green); }
+  .chevron {
+    width: 20px;
+    height: 20px;
+    border-right: 2px solid var(--mid-gray);
+    border-bottom: 2px solid var(--mid-gray);
+    transform: rotate(45deg);
+    transition: transform 0.25s;
+    flex-shrink: 0;
+  }
+  .section.collapsed .chevron { transform: rotate(-45deg); }
+
+  .section-body { padding: 0 20px 20px; }
+  .section.collapsed .section-body { display: none; }
+
+  /* ITEM */
+  .item {
+    border-top: 1px solid var(--light-gray);
+    padding: 16px 0 12px;
+  }
+  .item:first-child { border-top: none; padding-top: 8px; }
+
+  .item-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .item-num {
+    background: var(--green);
+    color: white;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .item-content { flex: 1; }
+  .item-title {
+    font-size: 13.5px;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 4px;
+  }
+  .item-note {
+    font-size: 11.5px;
+    color: var(--text-light);
+    background: #f0f8f4;
+    border-left: 3px solid var(--green-light);
+    padding: 5px 8px;
+    border-radius: 0 4px 4px 0;
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+  .item-max {
+    font-size: 12px;
+    color: var(--text-light);
+    flex-shrink: 0;
+    white-space: nowrap;
+    font-weight: 500;
+  }
+
+  /* SUB-ITEMS */
+  .sub-items { display: flex; flex-direction: column; gap: 6px; }
+  .sub-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 10px;
+    background: var(--off-white);
+    border-radius: 6px;
+    border: 1.5px solid transparent;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .sub-item:hover { border-color: var(--green); background: #f0faf4; }
+  .sub-item label {
+    font-size: 13px;
+    flex: 1;
+    cursor: pointer;
+    line-height: 1.4;
+  }
+  .sub-check {
+    width: 18px; height: 18px;
+    accent-color: var(--green);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .sub-score-tag {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--red);
+    white-space: nowrap;
+  }
+
+  /* SPECIAL: Item 01-04 bonus */
+  .bonus-notice {
+    background: linear-gradient(135deg, #fff9e6, #fff3cc);
+    border: 1.5px solid var(--orange);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 12.5px;
+    color: #7a4f00;
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+
+  /* SCORE CONTROLS */
+  .score-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+  }
+  .score-label { font-size: 12px; color: var(--text-light); }
+  .score-stepper {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .score-stepper button {
+    width: 30px; height: 30px;
+    border: none;
+    background: var(--light-gray);
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    transition: background 0.15s;
+  }
+  .score-stepper button:hover { background: var(--mid-gray); }
+  .score-stepper input {
+    width: 50px; height: 30px;
+    border: none;
+    border-left: 1.5px solid var(--border);
+    border-right: 1.5px solid var(--border);
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'Noto Sans TC', sans-serif;
+    background: white;
+  }
+  .score-stepper input:focus { outline: none; }
+
+  /* FULL PASS TOGGLE */
+  .full-pass-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+    border-radius: 8px;
+    margin-bottom: 12px;
+    border: 1.5px solid var(--green-light);
+  }
+  .full-pass-row label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--green);
+    cursor: pointer;
+    flex: 1;
+  }
+  .toggle-switch {
+    position: relative; width: 44px; height: 24px;
+  }
+  .toggle-switch input { opacity: 0; width: 0; height: 0; }
+  .toggle-slider {
+    position: absolute; inset: 0;
+    background: var(--mid-gray);
+    border-radius: 24px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .toggle-slider:before {
+    content: '';
+    position: absolute;
+    width: 18px; height: 18px;
+    left: 3px; top: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.2s;
+  }
+  .toggle-switch input:checked + .toggle-slider { background: var(--green); }
+  .toggle-switch input:checked + .toggle-slider:before { transform: translateX(20px); }
+
+  /* REMARKS */
+  .remark-field {
+    margin-top: 8px;
+  }
+  .remark-field textarea {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 12.5px;
+    resize: vertical;
+    min-height: 60px;
+    transition: border-color 0.2s;
+    background: var(--off-white);
+  }
+  .remark-field textarea:focus {
+    outline: none;
+    border-color: var(--green);
+    background: white;
+  }
+
+  /* BONUS / CHARM items */
+  .bonus-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 12px;
+    background: var(--off-white);
+    border-radius: 6px;
+    border: 1.5px solid transparent;
+    margin-bottom: 8px;
+    transition: border-color 0.2s;
+  }
+  .bonus-item:hover { border-color: var(--orange); }
+  .bonus-item label { font-size: 13px; flex: 1; cursor: pointer; line-height: 1.4; }
+  .bonus-check { width: 18px; height: 18px; accent-color: var(--orange); cursor: pointer; flex-shrink: 0; margin-top: 2px; }
+
+  .reverse-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 10px 12px; background: #fff5f5;
+    border-radius: 6px; border: 1.5px solid transparent;
+    margin-bottom: 8px; transition: border-color 0.2s;
+  }
+  .reverse-item:hover { border-color: var(--red); }
+  .reverse-item label { font-size: 13px; flex: 1; cursor: pointer; line-height: 1.4; }
+  .reverse-check { width: 18px; height: 18px; accent-color: var(--red); cursor: pointer; flex-shrink: 0; margin-top: 2px; }
+
+  .charm-desc-field input {
+    width: 100%; padding: 7px 10px;
+    border: 1.5px solid var(--border); border-radius: 5px;
+    font-family: 'Noto Sans TC', sans-serif; font-size: 12px;
+    margin-top: 6px; background: var(--off-white);
+  }
+
+  /* SCORE SUMMARY */
+  .score-summary {
+    background: white;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    border-top: 5px solid var(--green);
+  }
+  .summary-title { font-size: 15px; font-weight: 700; margin-bottom: 14px; color: var(--text); }
+  .summary-rows { display: flex; flex-direction: column; gap: 8px; }
+  .summary-row {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 12px; border-radius: 6px; background: var(--off-white);
+  }
+  .summary-row .s-label { flex: 1; font-size: 13px; }
+  .summary-row .s-score { font-size: 16px; font-weight: 900; min-width: 60px; text-align: right; }
+  .summary-row .s-bar-wrap { flex: 2; height: 8px; background: var(--light-gray); border-radius: 4px; overflow: hidden; }
+  .summary-row .s-bar { height: 100%; border-radius: 4px; transition: width 0.4s ease; }
+  .bar-focus { background: var(--red); }
+  .bar-basic { background: var(--green); }
+  .bar-pro { background: #4a90d9; }
+  .bar-response { background: #9b59b6; }
+  .bar-bonus { background: var(--orange); }
+  .bar-charm { background: #e74c3c; }
+  .bar-reverse { background: #2c3e50; }
+
+  .total-row {
+    margin-top: 12px; padding: 14px 16px;
+    background: var(--green); color: white;
+    border-radius: 8px; display: flex; align-items: center;
+  }
+  .total-row .t-label { flex: 1; font-size: 14px; font-weight: 700; }
+  .total-row .t-score { font-size: 32px; font-weight: 900; font-family: 'Oswald', sans-serif; }
+  .total-row .t-grade { margin-left: 12px; font-size: 20px; font-weight: 700; padding: 4px 14px; border-radius: 20px; }
+
+  /* SUBMIT */
+  .submit-btn {
+    width: 100%; padding: 16px;
+    background: var(--green);
+    color: white; border: none;
+    border-radius: 10px; font-size: 16px; font-weight: 700;
+    font-family: 'Noto Sans TC', sans-serif;
+    cursor: pointer; letter-spacing: 2px;
+    transition: background 0.2s, transform 0.15s;
+    box-shadow: 0 4px 12px rgba(0,114,51,0.3);
+    margin-top: 8px;
+  }
+  .submit-btn:hover { background: var(--green-light); transform: translateY(-1px); }
+  .submit-btn:active { transform: translateY(0); }
+
+  /* PRINT */
+  .print-btn {
+    width: 100%; padding: 12px;
+    background: white; color: var(--green);
+    border: 2px solid var(--green);
+    border-radius: 10px; font-size: 14px; font-weight: 700;
+    font-family: 'Noto Sans TC', sans-serif;
+    cursor: pointer; letter-spacing: 1px;
+    transition: all 0.2s;
+    margin-top: 10px;
+  }
+  .print-btn:hover { background: var(--green); color: white; }
+
+  @media (max-width: 600px) {
+    .info-grid { grid-template-columns: 1fr 1fr; }
+    .header-top { padding: 10px 14px; }
+    .logo { font-size: 22px; }
+  }
+
+  @media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    body { background: white !important; font-size: 11px; }
+    .header { position: static !important; box-shadow: none; }
+    .header-score-bar { display: none; }
+    .submit-btn, .print-btn { display: none !important; }
+    #saveModal, #loadModal, #reportModal, #toast { display: none !important; }
+    .section.collapsed .section-body { display: block !important; }
+    .section-header { cursor: default; background: none !important; padding: 8px 12px; }
+    .chevron { display: none; }
+    .section { box-shadow: none; border: 1px solid #ccc; margin-bottom: 8px; page-break-inside: avoid; }
+    .container { padding: 0; max-width: 100%; }
+    .store-info-card { box-shadow: none; border: 1px solid #ccc; margin-bottom: 8px; }
+    .score-summary { box-shadow: none; border: 1px solid #ccc; page-break-inside: avoid; }
+    .item { padding: 8px 0 6px; }
+    .item-note { font-size: 9px; }
+    .sub-item { padding: 4px 8px; background: #f5f5f5 !important; }
+    .remark-field textarea { min-height: 30px; font-size: 10px; }
+    .total-row { background: #007233 !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div class="logo">7-ELEVEn</div>
+    <div class="header-title">門市優質服務評分表 2026年</div>
+  </div>
+  <div class="header-score-bar">
+    <span>即時總分：</span>
+    <span class="live-score" id="liveScore">100</span>
+    <span>分</span>
+    <span class="grade-badge grade-Aplus" id="liveBadge">A+ 級</span>
+    <span style="margin-left:auto;font-size:11px;opacity:0.7">評分實時計算中</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- STORE INFO -->
+  <div class="store-info-card">
+    <div style="font-weight:700;font-size:14px;color:var(--green)">📋 查核資訊</div>
+    <div class="info-grid">
+      <div class="info-field">
+        <label>店號</label>
+        <input type="text" placeholder="請輸入店號" id="storeNum">
+      </div>
+      <div class="info-field">
+        <label>營運部</label>
+        <input type="text" id="dept" value="桃竹二營運部" readonly style="background:#e8f5e9;color:#007233;font-weight:700;cursor:default">
+      </div>
+      <div class="info-field">
+        <label>查核日期</label>
+        <input type="date" id="checkDate">
+      </div>
+      <div class="info-field">
+        <label>門市</label>
+        <input type="text" placeholder="門市名稱" id="storeName">
+      </div>
+      <div class="info-field">
+        <label>區課</label>
+        <select id="district">
+          <option value="">請選擇區課</option>
+          <option>龍潭區</option>
+          <option>楊新區</option>
+          <option>竹東區</option>
+          <option>竹北區</option>
+          <option>新竹區</option>
+          <option>竹科區</option>
+          <option>竹南區</option>
+          <option>苗栗區</option>
+          <option>豐原區</option>
+          <option>大岡區</option>
+        </select>
+      </div>
+      <div class="info-field">
+        <label>受評人員</label>
+        <input type="text" placeholder="受評人員姓名" id="inspector">
+      </div>
+      <div class="info-field">
+        <label>班別</label>
+        <select id="shift">
+          <option value="">請選擇</option>
+          <option>早班</option>
+          <option>晚班</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 重點聚焦 31分 ========== -->
+  <div class="section" id="sec-focus">
+    <div class="section-header" onclick="toggleSection('sec-focus')">
+      <span class="section-tag tag-focus">重點聚焦</span>
+      <span class="section-title">進門 + 結帳 + 面銷 + 致謝</span>
+      <span class="section-score-display"><span class="section-score-current" id="score-focus">31</span> / 31+9分</span>
+      <div class="chevron"></div>
+    </div>
+    <div class="section-body">
+
+      <div class="bonus-notice">
+        ⭐ <strong>全做到加分機制：</strong>01~04 四項都有做到，以 <strong>40分</strong> 計算（+9分獎勵）。若其中一項未滿分，依評分表逐項計分。
+        <div style="margin-top:8px;display:flex;align-items:center;gap:10px;">
+          <span style="font-weight:700">是否全部做到？</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="fullPassToggle" onchange="calcAll()">
+            <span class="toggle-slider"></span>
+          </label>
+          <span id="fullPassLabel" style="font-size:12px;color:var(--text-light)">尚未全部完成</span>
+        </div>
+      </div>
+
+      <!-- 01 進門招呼 -->
+      <div class="item">
+        <div class="item-header">
+          <div class="item-num">01</div>
+          <div class="item-content">
+            <div class="item-title">顧客進店時，服務人員有招呼話術。</div>
+            <div class="item-note">訪員進門後3分鐘內無招呼話術扣5分；3分鐘內全員因結帳或調製商品不扣分；3分鐘內無其他顧客進店，不扣分。</div>
+          </div>
+          <div class="item-max">滿分 5分</div>
+        </div>
+        <div class="sub-items">
+          <div class="sub-item">
+            <input type="checkbox" class="sub-check" id="i01" checked onchange="calcAll()">
+            <label for="i01">✅ 3分鐘內有招呼話術</label>
+            <span class="sub-score-tag">未執行 -5分</span>
+          </div>
+        </div>
+        <div class="remark-field">
+          <textarea placeholder="服務實況描述（選填）" id="r01"></textarea>
+        </div>
+      </div>
+
+      <!-- 02 結帳五步驟 -->
+      <div class="item">
+        <div class="item-header">
+          <div class="item-num">02</div>
+          <div class="item-content">
+            <div class="item-title">顧客臨櫃結帳服務五步驟</div>
+            <div class="item-note">每小項未執行扣3分。第①項招呼問候：自訪員從排隊停等線走到櫃台，有出聲招呼均認列。</div>
+          </div>
+          <div class="item-max">滿分 15分</div>
+        </div>
+        <div class="sub-items">
+          <div class="sub-item">
+            <input type="checkbox" class="sub-check" id="i02a" checked onchange="calcAll()">
+            <label for="i02a">① 向顧客招呼問候（例：您好 / 哈囉）</label>
+            <span class="sub-score-tag">-3分</span>
+          </div>
+          <div class="sub-item">
+            <input type="checkbox" class="sub-check" id="i02b" checked onchange="calcAll()">
+            <label for="i02b">② 詢問會員</label>
+            <span class="sub-score-tag">-3分</span>
+          </div>
+          <div class="sub-item">
+            <input type="checkbox" class="sub-check" id="i02c" checked onchange="calcAll()">
+            <label for="i02c">③ 確認發票存載具（手輸電話 / 報電話 / 刷會員條碼均可）</label>
+            <span class="sub-score-tag">-3分</span>
+          </div>
+          <div class="sub-item">
+            <input type="checkbox" class="sub-check" id="i02d" checked onchange="calcAll()">
+            <label for="i02d">④ 金額告知：總共多少元</label>
+            <span class="sub-score-tag">-3分</span>
+          </div>
+          <div class="sub-item">
+            <input type="checkbox" class="sub-check" id="i02e" checked onchange="calcAll()">
+            <label for="i02e">⑤ 支付指引（現金收找零；卡片/電子錢包告知完成）</label>
+            <span class="sub-score-tag">-3分</span>
+          </div>
+        </div>
+        <div class="remark-field">
+          <textarea placeholder="服務實況描述（選填）" id="r02"></textarea>
+        </div>
+      </div>
+
+      <!-- 03 面銷 -->
+      <div class="item">
+        <div class="item-header">
+          <div class="item-num">03</div>
+          <div class="item-content">
+            <div class="item-title">針對顧客購買商品或聚焦活動進行面銷。</div>
+            <div class="item-note">無面銷扣6分；訪員在第一位且排隊≧3人沒有面銷不扣分（≧3人以訪員初臨櫃判斷）。</div>
+          </div>
+          <div class="item-max">滿分 6分</div>
+        </div>
+        <div class="sub-items">
+          <div class="sub-item">
+            <input type="checkbox" class="sub-check" id="i03" checked onchange="calcAll()">
+            <label for="i03">✅ 有針對商品或活動進行面銷</label>
+            <span class="sub-score-tag">未執行 -6分</span>
+          </div>
+        </div>
+        <div class="remark-field">
+          <textarea placeholder="服務實況描述（選填）" id="r03"></textarea>
+        </div>
+      </div>
+
+      <!-- 04 致謝 -->
+      <div class="item">
+        <div class="item-header">
+          <div class="item-num">04</div>
+          <div class="item-content">
+            <div class="item-title">完成結帳服務後致謝（謝謝、歡迎再來等話術）</div>
+            <div class="item-note">臨櫃未致謝扣5分；付款後或裝袋後有致謝均給分。</div>
+          </div>
+          <div class="item-max">滿分 5分</div>
+        </div>
+        <div class="sub-items">
+          <div class="sub-item">
+            <input type="checkbox" class="sub-check" id="i04" checked onchange="calcAll()">
+            <label for="i04">✅ 結帳後有致謝話術</label>
+            <span class="sub-score-tag">未執行 -5分</span>
+          </div>
+        </div>
+        <div class="remark-field">
+          <textarea placeholder="服務實況描述（選填）" id="r04"></textarea>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========== 基本項目 30分 ========== -->
+  <div class="section" id="sec-basic">
+    <div class="section-header" onclick="toggleSection('sec-basic')">
+      <span class="section-tag tag-basic">基本項目</span>
+      <span class="section-title">服儀 + 環境整潔</span>
+      <span class="section-score-display"><span class="section-score-current" id="score-basic">30</span> / 30分</span>
+      <div class="chevron"></div>
+    </div>
+    <div class="section-body">
+
+      <!-- 05 服儀 -->
+      <div class="item">
+        <div class="item-header">
+          <div class="item-num">05</div>
+          <div class="item-content">
+            <div class="item-title">服儀表現（制服、名牌、飾品）</div>
+            <div class="item-note">每項扣2分（名牌可不顯示全名、可不張貼照片）。</div>
+          </div>
+          <div class="item-max">滿分 6分</div>
+        </div>
+        <div class="sub-items">
+          <div class="sub-item">
+            <input type="checkbox" class="sub-check" id="i05a" checked onchange="calcAll()">
+            <label for="i05a">① 著乾淨制服</label>
+            <span class="sub-score-tag">-2分</span>
+          </div>
+          <div class="sub-item">
+            <input type="checkbox" class="sub-check" id="i05b" checked onchange="calcAll()">
+            <label for="i05b">② 佩掛名牌且名稱可辨識（非條碼）</label>
+            <span class="sub-score-tag">-2分</span>
+          </div>
+          <div class="sub-item">
+            <input type="checkbox" class="sub-check" id="i05c" checked onchange="calcAll()">
+            <label for="i05c">③ 無指甲油、指甲彩繪、手指佩戴飾品</label>
+            <span class="sub-score-tag">-2分</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 06 外部環境 -->
+      <div class="item">
+        <div class="item-header">
+          <div class="item-num">06</div>
+          <div class="item-content">
+            <div class="item-title">外部環境清潔</div>
+            <div class="item-note">每項扣2分。</div>
+          </div>
+          <div class="item-max">滿分 4分</div>
+        </div>
+        <div class="sub-items">
+          <div class="sub-item">
+            <input type="checkbox" class="sub-check" id="i06a" checked onchange="calcAll()">
+            <label for="i06a">① 騎樓與外圍清潔，空箱堆放無垃圾</label>
+            <span class="sub-score-tag">-2分</span>
+          </div>
+          <div class="sub-item">
+            <input type="checkbox" class="sub-check" id="i06b" checked onchange="calcAll()">
+            <label for="i06b">② 玻璃無明顯髒污</label>
+            <span class="sub-score-tag">-2分</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 07 內部整齊 -->
+      <div class="item">
+        <div class="item-header">
+          <div class="item-num">07</div>
+          <div class="item-content">
+            <div class="item-title">內部整齊</div>
+            <div class="item-note">每項扣2分。</div>
+          </div>
+          <div class="item-max">滿分 8分</div>
+        </div>
+        <div class="sub-items">
+          <div class="sub-item">
+            <input type="checkbox" class="sub-check" id="i07a" checked onchange="calcAll()">
+            <label for="i07a">① 賣場貨架空洞無商品未達3排（含）或無凌亂</label>
+            <span class="sub-score-tag">-2分</span>
+          </div>
+          <div class="sub-item">
+            <input type="checkbox" class="sub-check" id="i07b" checked onchange="calcAll()">
+            <label for="i07b">② 落地陳列均有POP價格告知</label>
+            <span class="sub-score-tag">-2分</span>
+          </div>
+          <div class="sub-item">
+            <input type="checkbox" class="sub-check" id="i07c" checked onchange="calcAll()">
+            <label for="i07c">③ 洗手槽無放置刷具 / 海棉 / 洗碗精</label>
+            <span class="sub-score-tag">-2分</span>
+          </div>
+          <div class="sub-item">
+            <input type="checkbox" class="sub-check" id="i07d" checked onchange="calcAll()">
+            <label for="i07d">④ 無堆放商品與雜物影響走道動線</label>
+            <span class="sub-score-tag">-2分</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 08 內部清潔 -->
+      <div class="item">
+        <div class="item-header">
+          <div class="item-num">08</div>
+          <div class="item-content">
+            <div class="item-title">內部清潔</div>
+            <div class="item-note">每項扣2分（無座位區或時段關閉無法觀察，②③直接給分）。</div>
+          </div>
+          <div class="item-max">滿分 6分</div>
+        </div>
+        <div class="sub-items">
+          <div class="sub-item">
+            <input type="checkbox" class="sub-check" id="i08a" checked onchange="calcAll()">
+            <label for="i08a">① 地板清潔</label>
+            <span class="sub-score-tag">-2分</span>
+          </div>
+          <div class="sub-item">
+            <input type="checkbox" class="sub-check" id="i08b" checked onchange="calcAll()">
+            <label for="i08b">② 座位區整潔（含垃圾桶清潔 / 無滿溢）</label>
+            <span class="sub-score-tag">-2分</span>
+          </div>
+          <div class="sub-item">
+            <input type="checkbox" class="sub-check" id="i08c" checked onchange="calcAll()">
+            <label for="i08c">③ 座位張貼顧客公約（有徵才與加盟連結）與禁止外食</label>
+            <span class="sub-score-tag">-2分</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 09 廁所 -->
+      <div class="item">
+        <div class="item-header">
+          <div class="item-num">09</div>
+          <div class="item-content">
+            <div class="item-title">廁所環境</div>
+            <div class="item-note">每項扣2分；無廁所直接給分；EMAP有，因清潔/故障未開放未張貼告示，皆不給分。</div>
+          </div>
+          <div class="item-max">滿分 6分</div>
+        </div>
+        <div class="sub-items">
+          <div class="sub-item">
+            <input type="checkbox" class="sub-check" id="i09a" checked onchange="calcAll()">
+            <label for="i09a">① 廁所整潔無汙垢</label>
+            <span class="sub-score-tag">-2分</span>
+          </div>
+          <div class="sub-item">
+            <input type="checkbox" class="sub-check" id="i09b" checked onchange="calcAll()">
+            <label for="i09b">② 化妝室公約張貼且廁所清潔檢查表落實填寫</label>
+            <span class="sub-score-tag">-2分</span>
+          </div>
+          <div class="sub-item">
+            <input type="checkbox" class="sub-check" id="i09c" checked onchange="calcAll()">
+            <label for="i09c">③ 垃圾桶有加蓋且無滿溢</label>
+            <span class="sub-score-tag">-2分</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========== 專業服務 18分 ========== -->
+  <div class="section" id="sec-pro">
+    <div class="section-header" onclick="toggleSection('sec-pro')">
+      <span class="section-tag tag-pro">專業服務</span>
+      <span class="section-title">排隊支援 + 裝袋 + 交付</span>
+      <span class="section-score-display"><span class="section-score-current" id="score-pro">18</span> / 18分</span>
+      <div class="chevron"></div>
+    </div>
+    <div class="section-body">
+
+      <!-- 10 排隊支援 -->
+      <div class="item">
+        <div class="item-header">
+          <div class="item-num">10</div>
+          <div class="item-content">
+            <div class="item-title">排隊≧4人時立即支援與引導</div>
+            <div class="item-note">每項扣5分，未排隊≧4人直接給分；第一項排隊≧4人但僅一位職員，不扣分；第二項觀察自訪員排隊至結完帳下一位顧客，門市有執行即給分。</div>
+          </div>
+          <div class="item-max">滿分 10分</div>
+        </div>
+        <div class="sub-items">
+          <div class="sub-item">
+            <input type="checkbox" class="sub-check" id="i10a" checked onchange="calcAll()">
+            <label for="i10a">① 立即支援結帳</label>
+            <span class="sub-score-tag">-5分</span>
+          </div>
+          <div class="sub-item">
+            <input type="checkbox" class="sub-check" id="i10b" checked onchange="calcAll()">
+            <label for="i10b">② 引導排隊顧客臨櫃（手勢或出聲）；有引導自助結帳均給分</label>
+            <span class="sub-score-tag">-5分</span>
+          </div>
+        </div>
+        <div class="remark-field">
+          <textarea placeholder="服務實況描述（選填）" id="r10"></textarea>
+        </div>
+      </div>
+
+      <!-- 11 裝袋 -->
+      <div class="item">
+        <div class="item-header">
+          <div class="item-num">11</div>
+          <div class="item-content">
+            <div class="item-title">結帳裝袋</div>
+            <div class="item-note">每項扣2分（配合減塑政策，店員未詢問是否須購買購物袋不扣分）。</div>
+          </div>
+          <div class="item-max">滿分 4分</div>
+        </div>
+        <div class="sub-items">
+          <div class="sub-item">
+            <input type="checkbox" class="sub-check" id="i11a" checked onchange="calcAll()">
+            <label for="i11a">① 無論顧客買購物袋 / 自備，主動協助顧客裝袋</label>
+            <span class="sub-score-tag">-2分</span>
+          </div>
+          <div class="sub-item">
+            <input type="checkbox" class="sub-check" id="i11b" checked onchange="calcAll()">
+            <label for="i11b">② 冷 / 熱食分開、隔開包裝（客人同意不在此限）</label>
+            <span class="sub-score-tag">-2分</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 12 交付 -->
+      <div class="item">
+        <div class="item-header">
+          <div class="item-num">12</div>
+          <div class="item-content">
+            <div class="item-title">單據、現金及商品交付</div>
+            <div class="item-note">每項扣2分，至單項0分為止（零錢與收據放零錢盤使用亦可給分）。</div>
+          </div>
+          <div class="item-max">滿分 4分</div>
+        </div>
+        <div class="sub-items">
+          <div class="sub-item">
+            <input type="checkbox" class="sub-check" id="i12a" checked onchange="calcAll()">
+            <label for="i12a">① 雙手伸出交付顧客單據、現金</label>
+            <span class="sub-score-tag">-2分</span>
+          </div>
+          <div class="sub-item">
+            <input type="checkbox" class="sub-check" id="i12b" checked onchange="calcAll()">
+            <label for="i12b">② 話術或手勢引導商品擺放位置</label>
+            <span class="sub-score-tag">-2分</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========== 應對服務 21分 ========== -->
+  <div class="section" id="sec-response">
+    <div class="section-header" onclick="toggleSection('sec-response')">
+      <span class="section-tag tag-response">應對服務</span>
+      <span class="section-title">測試顧客有需要幫助或不滿時</span>
+      <span class="section-score-display"><span class="section-score-current" id="score-response">21</span> / 21分</span>
+      <div class="chevron"></div>
+    </div>
+    <div class="section-body">
+
+      <!-- 13-1 放下回應 -->
+      <div class="item">
+        <div class="item-header">
+          <div class="item-num">13-1</div>
+          <div class="item-content">
+            <div class="item-title">【放下、回應】暫時放下手邊工作與顧客互動、招呼</div>
+            <div class="item-note">沒做到扣5分（如需要等候，禮貌的說明原因）。</div>
+          </div>
+          <div class="item-max">滿分 5分</div>
+        </div>
+        <div class="sub-items">
+          <div class="sub-item">
+            <input type="checkbox" class="sub-check" id="i13a" checked onchange="calcAll()">
+            <label for="i13a">✅ 有放下手邊工作並回應顧客</label>
+            <span class="sub-score-tag">未執行 -5分</span>
+          </div>
+        </div>
+        <div class="remark-field">
+          <textarea placeholder="實況簡述（選填）" id="r13a"></textarea>
+        </div>
+      </div>
+
+      <!-- 13-2 尊重傾聽 -->
+      <div class="item">
+        <div class="item-header">
+          <div class="item-num">13-2</div>
+          <div class="item-content">
+            <div class="item-title">【尊重、傾聽】對話時以正面視角目光注視顧客，耐心聆聽</div>
+            <div class="item-note">沒做到扣5分。</div>
+          </div>
+          <div class="item-max">滿分 5分</div>
+        </div>
+        <div class="sub-items">
+          <div class="sub-item">
+            <input type="checkbox" class="sub-check" id="i13b" checked onchange="calcAll()">
+            <label for="i13b">✅ 有目光注視顧客並耐心聆聽</label>
+            <span class="sub-score-tag">未執行 -5分</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 13-3 處理 -->
+      <div class="item">
+        <div class="item-header">
+          <div class="item-num">13-3</div>
+          <div class="item-content">
+            <div class="item-title">【處理】回應顧客提問 / 需求 / 抱怨</div>
+            <div class="item-note">沒做到扣6分，依狀況類型，有確實回應給分。<br>
+            類型1：依需求介紹商品/活動/業務，缺貨/故障時致歉並給替代方案。<br>
+            類型2：非門市業務，委婉致意並提供替代建議。<br>
+            類型3：客訴抱怨能致歉、告知處理作為。</div>
+          </div>
+          <div class="item-max">滿分 6分</div>
+        </div>
+        <div class="sub-items">
+          <div class="sub-item">
+            <input type="checkbox" class="sub-check" id="i13c" checked onchange="calcAll()">
+            <label for="i13c">✅ 有確實回應顧客需求（依類型給分）</label>
+            <span class="sub-score-tag">未執行 -6分</span>
+          </div>
+        </div>
+        <div class="remark-field">
+          <textarea placeholder="實況簡述（選填）" id="r13c"></textarea>
+        </div>
+      </div>
+
+      <!-- 13-4 感謝 -->
+      <div class="item">
+        <div class="item-header">
+          <div class="item-num">13-4</div>
+          <div class="item-content">
+            <div class="item-title">【感謝】服務結束前有擇一完成</div>
+            <div class="item-note">沒做到扣5分。①確認顧客還需其他協助；②對談結束有話語致意或禮貌說明暫時離開。</div>
+          </div>
+          <div class="item-max">滿分 5分</div>
+        </div>
+        <div class="sub-items">
+          <div class="sub-item">
+            <input type="checkbox" class="sub-check" id="i13d" checked onchange="calcAll()">
+            <label for="i13d">① 確認顧客還需其他協助</label>
+            <span class="sub-score-tag">-5分（擇一）</span>
+          </div>
+          <div class="sub-item">
+            <input type="checkbox" class="sub-check" id="i13e" checked onchange="calcAll()">
+            <label for="i13e">② 對談結束有話語致意或禮貌說明暫時離開</label>
+            <span class="sub-score-tag">-5分（擇一）</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========== 加分項目 最高14分 ========== -->
+  <div class="section" id="sec-bonus">
+    <div class="section-header" onclick="toggleSection('sec-bonus')">
+      <span class="section-tag tag-bonus">加分項目</span>
+      <span class="section-title">自助結帳 + 便民設施（每項+2分，第5項共+6分）</span>
+      <span class="section-score-display">+<span class="section-score-current" id="score-bonus">0</span> / 14分</span>
+      <div class="chevron"></div>
+    </div>
+    <div class="section-body">
+      <div class="bonus-item">
+        <input type="checkbox" class="bonus-check" id="b1" onchange="calcAll()">
+        <label for="b1"><strong>加分1：</strong>櫃台收銀機因應人力轉自助結帳功能，有指引立牌提供顧客操作手順；賣場型自助結帳有開啟，有指引立牌提供顧客操作手順。<br><span style="font-size:11px;color:var(--text-light)">依訪員觀察，無開啟、無指引立牌告示不加分</span></label>
+        <span style="color:var(--orange);font-weight:700;font-size:13px;white-space:nowrap">+2分</span>
+      </div>
+      <div class="bonus-item">
+        <input type="checkbox" class="bonus-check" id="b2" onchange="calcAll()">
+        <label for="b2"><strong>加分2：</strong>櫃台職員能以話術，建議顧客使用自助結帳功能。<br><span style="font-size:11px;color:var(--text-light)">依訪員觀察，無話術指引不加分（錄影佐證不加分）</span></label>
+        <span style="color:var(--orange);font-weight:700;font-size:13px;white-space:nowrap">+2分</span>
+      </div>
+      <div class="bonus-item">
+        <input type="checkbox" class="bonus-check" id="b3" onchange="calcAll()">
+        <label for="b3"><strong>加分3：</strong>顧客使用自助結帳，職員能從旁指導代替代勞，確保顧客在學習中完成結帳。<br><span style="font-size:11px;color:var(--text-light)">依訪員觀察，未從旁導引不加分（錄影佐證不加分）</span></label>
+        <span style="color:var(--orange);font-weight:700;font-size:13px;white-space:nowrap">+2分</span>
+      </div>
+      <div class="bonus-item">
+        <input type="checkbox" class="bonus-check" id="b4" onchange="calcAll()">
+        <label for="b4"><strong>加分4：</strong>自助區或用餐區有提供餐巾紙。<br><span style="font-size:11px;color:var(--text-light)">依訪員觀察加分</span></label>
+        <span style="color:var(--orange);font-weight:700;font-size:13px;white-space:nowrap">+2分</span>
+      </div>
+      <div style="margin-bottom:8px;padding:10px 12px;background:#fff8f0;border-radius:6px;border:1.5px solid var(--orange)">
+        <div style="font-size:12.5px;font-weight:700;color:#7a4f00;margin-bottom:8px">加分5：對外廁所提供衛生紙、洗手乳、坐墊酒精或酒精噴（每項+2分，無對外廁所不加分）</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer">
+            <input type="checkbox" class="bonus-check" id="b5a" onchange="calcAll()"> 衛生紙 (+2分)
+          </label>
+          <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer">
+            <input type="checkbox" class="bonus-check" id="b5b" onchange="calcAll()"> 洗手乳 (+2分)
+          </label>
+          <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer">
+            <input type="checkbox" class="bonus-check" id="b5c" onchange="calcAll()"> 坐墊酒精或酒精噴 (+2分)
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 魅力服務 最高+3分 ========== -->
+  <div class="section" id="sec-charm">
+    <div class="section-header" onclick="toggleSection('sec-charm')">
+      <span class="section-tag tag-charm">魅力服務</span>
+      <span class="section-title">超乎顧客預期（每項+1分，限3項）</span>
+      <span class="section-score-display">+<span class="section-score-current" id="score-charm">0</span> / 3分</span>
+      <div class="chevron"></div>
+    </div>
+    <div class="section-body">
+      <div style="font-size:12px;color:var(--text-light);margin-bottom:10px">服務/商形超乎顧客預期，每項具體事實依訪員觀察，加總分1分（錄影佐證不加分），限3項</div>
+
+      <div class="bonus-item">
+        <input type="checkbox" class="bonus-check" id="c1" onchange="calcAll()">
+        <label for="c1"><strong>1. 服務親切：</strong>貼心提醒如小心燙、自助微波使用手順；適度目視進店顧客並面帶笑容；進門招呼有朝氣等。
+          <div class="charm-desc-field"><input type="text" placeholder="具體事實描述（必填）"></div>
+        </label>
+        <span style="color:#e74c3c;font-weight:700;font-size:13px;white-space:nowrap">+1分</span>
+      </div>
+      <div class="bonus-item">
+        <input type="checkbox" class="bonus-check" id="c2" onchange="calcAll()">
+        <label for="c2"><strong>2. 熱心助人：</strong>觀察有耐心協助老人、身障者、小孩需求等。
+          <div class="charm-desc-field"><input type="text" placeholder="具體事實描述（必填）"></div>
+        </label>
+        <span style="color:#e74c3c;font-weight:700;font-size:13px;white-space:nowrap">+1分</span>
+      </div>
+      <div class="bonus-item">
+        <input type="checkbox" class="bonus-check" id="c3" onchange="calcAll()">
+        <label for="c3"><strong>3. 應對服務：</strong>狀況題整體應對，符合說話速度適宜、表達清晰、展現關懷與理解、同理、給予積極協助。
+          <div class="charm-desc-field"><input type="text" placeholder="具體事實描述（必填）"></div>
+        </label>
+        <span style="color:#e74c3c;font-weight:700;font-size:13px;white-space:nowrap">+1分</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 反轉服務 扣分 ========== -->
+  <div class="section" id="sec-reverse">
+    <div class="section-header" onclick="toggleSection('sec-reverse')">
+      <span class="section-tag tag-reverse">反轉服務</span>
+      <span class="section-title">讓顧客不滿意（每項-1分，限3項）</span>
+      <span class="section-score-display"><span class="section-score-current" id="score-reverse">0</span> 扣分</span>
+      <div class="chevron"></div>
+    </div>
+    <div class="section-body">
+      <div style="font-size:12px;color:var(--text-light);margin-bottom:10px">言行/商形讓顧客感到不滿意，每項具體事實依訪員觀察，扣總分1分，限3項</div>
+
+      <div class="reverse-item">
+        <input type="checkbox" class="reverse-check" id="rv1" onchange="calcAll()">
+        <label for="rv1"><strong>1. 不當言行：</strong>顧著聊天、粗口、櫃台飲食、未著制服進櫃台、服務時表現不耐等。
+          <div class="charm-desc-field"><input type="text" placeholder="具體事實描述（必填）"></div>
+        </label>
+        <span style="color:var(--red);font-weight:700;font-size:13px;white-space:nowrap">-1分</span>
+      </div>
+      <div class="reverse-item">
+        <input type="checkbox" class="reverse-check" id="rv2" onchange="calcAll()">
+        <label for="rv2"><strong>2. 商形：</strong>招牌破損、POP過期、冰箱價格卡缺≥5項、賣場價格卡缺≥5項、EC包裹直接落地無棧板等。
+          <div class="charm-desc-field"><input type="text" placeholder="具體事實描述（必填）"></div>
+        </label>
+        <span style="color:var(--red);font-weight:700;font-size:13px;white-space:nowrap">-1分</span>
+      </div>
+      <div class="reverse-item">
+        <input type="checkbox" class="reverse-check" id="rv3" onchange="calcAll()">
+        <label for="rv3"><strong>3. 清潔品保：</strong>貨架/商品/設備積塵、乳品冰箱層板/自助區面板髒汙/蟲屍、鮮速食過期。
+          <div class="charm-desc-field"><input type="text" placeholder="具體事實描述（必填）"></div>
+        </label>
+        <span style="color:var(--red);font-weight:700;font-size:13px;white-space:nowrap">-1分</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 其他建議 ========== -->
+  <div class="section" id="sec-other">
+    <div class="section-header" onclick="toggleSection('sec-other')">
+      <span class="section-tag" style="background:#78909c;color:white">其他建議</span>
+      <span class="section-title">其他建議事項（不計分）</span>
+      <div class="chevron"></div>
+    </div>
+    <div class="section-body">
+      <div style="font-size:12px;color:var(--text-light);margin-bottom:10px">非評分表項目，調整後對顧客感受提升預期有正面幫助</div>
+      <textarea style="width:100%;padding:10px;border:1.5px solid var(--border);border-radius:6px;font-family:'Noto Sans TC',sans-serif;font-size:13px;resize:vertical;min-height:80px;background:var(--off-white)" placeholder="請輸入其他建議..."></textarea>
+    </div>
+  </div>
+
+  <!-- ========== SCORE SUMMARY ========== -->
+  <div class="score-summary">
+    <div class="summary-title">📊 各項目得分</div>
+    <div class="summary-rows">
+      <div class="summary-row">
+        <span class="s-label" style="color:var(--red)">🔴 重點聚焦</span>
+        <div class="s-bar-wrap"><div class="s-bar bar-focus" id="bar-focus" style="width:100%"></div></div>
+        <span class="s-score" id="disp-focus">31</span>
+        <span style="font-size:11px;color:var(--text-light)">/ 31</span>
+      </div>
+      <div class="summary-row">
+        <span class="s-label" style="color:var(--green)">🟢 基本項目</span>
+        <div class="s-bar-wrap"><div class="s-bar bar-basic" id="bar-basic" style="width:100%"></div></div>
+        <span class="s-score" id="disp-basic">30</span>
+        <span style="font-size:11px;color:var(--text-light)">/ 30</span>
+      </div>
+      <div class="summary-row">
+        <span class="s-label" style="color:#4a90d9">🔵 專業服務</span>
+        <div class="s-bar-wrap"><div class="s-bar bar-pro" id="bar-pro" style="width:100%"></div></div>
+        <span class="s-score" id="disp-pro">18</span>
+        <span style="font-size:11px;color:var(--text-light)">/ 18</span>
+      </div>
+      <div class="summary-row">
+        <span class="s-label" style="color:#9b59b6">🟣 應對服務</span>
+        <div class="s-bar-wrap"><div class="s-bar bar-response" id="bar-response" style="width:100%"></div></div>
+        <span class="s-score" id="disp-response">21</span>
+        <span style="font-size:11px;color:var(--text-light)">/ 21</span>
+      </div>
+      <div class="summary-row">
+        <span class="s-label" style="color:var(--orange)">🟡 加分項目</span>
+        <div class="s-bar-wrap"><div class="s-bar bar-bonus" id="bar-bonus" style="width:0%"></div></div>
+        <span class="s-score" id="disp-bonus">+0</span>
+        <span style="font-size:11px;color:var(--text-light)">/ 14</span>
+      </div>
+      <div class="summary-row">
+        <span class="s-label" style="color:#e74c3c">❤️ 魅力服務</span>
+        <div class="s-bar-wrap"><div class="s-bar bar-charm" id="bar-charm" style="width:0%"></div></div>
+        <span class="s-score" id="disp-charm">+0</span>
+        <span style="font-size:11px;color:var(--text-light)">/ 3</span>
+      </div>
+      <div class="summary-row">
+        <span class="s-label" style="color:#2c3e50">⚫ 反轉扣分</span>
+        <div class="s-bar-wrap"><div class="s-bar bar-reverse" id="bar-reverse" style="width:0%"></div></div>
+        <span class="s-score" id="disp-reverse">-0</span>
+        <span style="font-size:11px;color:var(--text-light)">/ -3</span>
+      </div>
+    </div>
+    <div class="total-row">
+      <span class="t-label">總分（含加分及魅力-反轉）</span>
+      <span class="t-score" id="totalScoreDisp">100</span>
+      <span style="font-size:14px;margin-left:4px">分</span>
+      <span class="t-grade grade-Aplus" id="totalGradeDisp">A+級</span>
+    </div>
+    <div style="margin-top:10px;font-size:12px;color:var(--text-light);text-align:center">
+      A+級：100~90分 ／ A級：89~80分 ／ B級：79~70分 ／ C級：69~60分 ／ Z級：&lt;60分
+    </div>
+  </div>
+
+  <button onclick="submitToGoogleForm()" style="width:100%;padding:18px;background:linear-gradient(135deg,#007233,#00a04e);color:white;border:none;border-radius:12px;font-size:18px;font-weight:900;font-family:inherit;cursor:pointer;letter-spacing:2px;box-shadow:0 6px 20px rgba(0,114,51,0.4);margin-bottom:10px;transition:transform 0.15s">📤 送出評分結果（開啟表單確認）</button>
+  <button onclick="printPDF()" style="width:100%;padding:14px;background:linear-gradient(135deg,#e8001c,#c0001a);color:white;border:none;border-radius:12px;font-size:15px;font-weight:900;font-family:inherit;cursor:pointer;letter-spacing:2px;box-shadow:0 4px 14px rgba(232,0,28,0.35);margin-bottom:10px;transition:transform 0.15s">🖨️ 儲存為 PDF</button>
+  <div style="background:#fff8e1;border:1.5px solid #f5a623;border-radius:8px;padding:10px 14px;font-size:12px;color:#7a4f00;line-height:1.7;margin-bottom:10px">
+    📌 <strong>儲存PDF步驟：</strong>按下按鈕後，在列印視窗中<br>
+    ① 目的地（印表機）選擇 <strong>「另存為 PDF」</strong><br>
+    ② 按「儲存」即可下載 PDF 檔案
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+    <button class="submit-btn" onclick="showSaveModal()" style="background:#2980b9;font-size:13px;padding:11px">💾 備份評分資料</button>
+    <button class="submit-btn" onclick="showLoadModal()" style="background:#8e44ad;font-size:13px;padding:11px">📂 還原評分資料</button>
+  </div>
+
+</div>
+
+<!-- SAVE MODAL -->
+<div id="saveModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:1000;align-items:center;justify-content:center">
+  <div style="background:white;border-radius:14px;padding:24px;max-width:520px;width:92%;max-height:80vh;display:flex;flex-direction:column;gap:14px;box-shadow:0 8px 32px rgba(0,0,0,0.3)">
+    <div style="font-weight:700;font-size:16px;color:#2980b9">💾 儲存評分資料</div>
+    <div style="font-size:13px;color:#555;line-height:1.6">請按「全選並複製」，再貼到記事本儲存為 <strong>.txt</strong>，下次可用「載入」還原所有資料。</div>
+    <textarea id="saveTextArea" readonly style="flex:1;min-height:160px;padding:10px;border:1.5px solid #d0d0d0;border-radius:8px;font-size:11px;font-family:monospace;resize:none;background:#f7f7f5"></textarea>
+    <div style="display:flex;gap:10px">
+      <button onclick="selectAndCopy()" style="flex:1;padding:11px;background:#2980b9;color:white;border:none;border-radius:8px;font-weight:700;font-size:14px;cursor:pointer;font-family:inherit">📋 全選並複製</button>
+      <button onclick="closeModal('saveModal')" style="padding:11px 20px;background:#eee;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-family:inherit">關閉</button>
+    </div>
+  </div>
+</div>
+
+<!-- LOAD MODAL -->
+<div id="loadModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:1000;align-items:center;justify-content:center">
+  <div style="background:white;border-radius:14px;padding:24px;max-width:520px;width:92%;display:flex;flex-direction:column;gap:14px;box-shadow:0 8px 32px rgba(0,0,0,0.3)">
+    <div style="font-weight:700;font-size:16px;color:#8e44ad">📂 載入已存資料</div>
+    <div style="font-size:13px;color:#555;line-height:1.6">將之前複製儲存的文字<strong>貼入</strong>下方，然後按「還原」。</div>
+    <textarea id="loadTextArea" placeholder="請貼上之前儲存的資料..." style="min-height:160px;padding:10px;border:1.5px solid #d0d0d0;border-radius:8px;font-size:11px;font-family:monospace;resize:none"></textarea>
+    <div style="display:flex;gap:10px">
+      <button onclick="doLoad()" style="flex:1;padding:11px;background:#8e44ad;color:white;border:none;border-radius:8px;font-weight:700;font-size:14px;cursor:pointer;font-family:inherit">✅ 還原評分資料</button>
+      <button onclick="closeModal('loadModal')" style="padding:11px 20px;background:#eee;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-family:inherit">關閉</button>
+    </div>
+  </div>
+</div>
+
+<!-- REPORT MODAL -->
+<div id="reportModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:1000;align-items:center;justify-content:center">
+  <div style="background:white;border-radius:14px;padding:24px;max-width:560px;width:92%;max-height:85vh;overflow-y:auto;display:flex;flex-direction:column;gap:14px;box-shadow:0 8px 32px rgba(0,0,0,0.3)">
+    <div style="font-weight:700;font-size:16px;color:#007233">📋 評分結果報告</div>
+    <div id="reportContent" style="font-size:13px;line-height:1.9;white-space:pre-wrap;font-family:'Noto Sans TC',sans-serif"></div>
+    <div style="display:flex;gap:10px">
+      <button onclick="copyReport()" style="flex:1;padding:11px;background:#007233;color:white;border:none;border-radius:8px;font-weight:700;font-size:14px;cursor:pointer;font-family:inherit">📋 複製報告文字</button>
+      <button onclick="closeModal('reportModal')" style="padding:11px 20px;background:#eee;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-family:inherit">關閉</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast" style="display:none;position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#1a1a1a;color:white;padding:12px 24px;border-radius:30px;font-size:14px;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,0.3);transition:opacity 0.4s;font-family:'Noto Sans TC',sans-serif"></div>
+
+<script>
+function toggleSection(id) {
+  document.getElementById(id).classList.toggle('collapsed');
+}
+
+function calcAll() {
+  // ── Focus section ──
+  const fullPass = document.getElementById('fullPassToggle').checked;
+  document.getElementById('fullPassLabel').textContent = fullPass ? '✅ 全部做到！+9分獎勵' : '尚未全部完成';
+
+  let focus = 0;
+  if (fullPass) {
+    focus = 40;
+  } else {
+    focus += document.getElementById('i01').checked ? 5 : 0;
+    let i02 = 0;
+    ['i02a','i02b','i02c','i02d','i02e'].forEach(id => {
+      if (document.getElementById(id).checked) i02 += 3;
+    });
+    focus += i02;
+    focus += document.getElementById('i03').checked ? 6 : 0;
+    focus += document.getElementById('i04').checked ? 5 : 0;
+  }
+  document.getElementById('score-focus').textContent = focus;
+  document.getElementById('disp-focus').textContent = focus;
+  document.getElementById('bar-focus').style.width = (focus / 40 * 100) + '%';
+
+  // ── Basic section ──
+  let basic = 0;
+  ['i05a','i05b','i05c'].forEach(id => { if (document.getElementById(id).checked) basic += 2; });
+  ['i06a','i06b'].forEach(id => { if (document.getElementById(id).checked) basic += 2; });
+  ['i07a','i07b','i07c','i07d'].forEach(id => { if (document.getElementById(id).checked) basic += 2; });
+  ['i08a','i08b','i08c'].forEach(id => { if (document.getElementById(id).checked) basic += 2; });
+  ['i09a','i09b','i09c'].forEach(id => { if (document.getElementById(id).checked) basic += 2; });
+  document.getElementById('score-basic').textContent = basic;
+  document.getElementById('disp-basic').textContent = basic;
+  document.getElementById('bar-basic').style.width = (basic / 30 * 100) + '%';
+
+  // ── Pro section ──
+  let pro = 0;
+  pro += document.getElementById('i10a').checked ? 5 : 0;
+  pro += document.getElementById('i10b').checked ? 5 : 0;
+  ['i11a','i11b'].forEach(id => { if (document.getElementById(id).checked) pro += 2; });
+  ['i12a','i12b'].forEach(id => { if (document.getElementById(id).checked) pro += 2; });
+  document.getElementById('score-pro').textContent = pro;
+  document.getElementById('disp-pro').textContent = pro;
+  document.getElementById('bar-pro').style.width = (pro / 18 * 100) + '%';
+
+  // ── Response section ──
+  let resp = 0;
+  resp += document.getElementById('i13a').checked ? 5 : 0;
+  resp += document.getElementById('i13b').checked ? 5 : 0;
+  resp += document.getElementById('i13c').checked ? 6 : 0;
+  // 13-4 = 5 if either checkbox is checked
+  resp += (document.getElementById('i13d').checked || document.getElementById('i13e').checked) ? 5 : 0;
+  document.getElementById('score-response').textContent = resp;
+  document.getElementById('disp-response').textContent = resp;
+  document.getElementById('bar-response').style.width = (resp / 21 * 100) + '%';
+
+  // ── Bonus ──
+  let bonus = 0;
+  ['b1','b2','b3','b4'].forEach(id => { if (document.getElementById(id).checked) bonus += 2; });
+  ['b5a','b5b','b5c'].forEach(id => { if (document.getElementById(id).checked) bonus += 2; });
+  document.getElementById('score-bonus').textContent = bonus;
+  document.getElementById('disp-bonus').textContent = '+' + bonus;
+  document.getElementById('bar-bonus').style.width = (bonus / 14 * 100) + '%';
+
+  // ── Charm ──
+  let charm = 0;
+  ['c1','c2','c3'].forEach(id => { if (document.getElementById(id).checked) charm += 1; });
+  document.getElementById('score-charm').textContent = charm;
+  document.getElementById('disp-charm').textContent = '+' + charm;
+  document.getElementById('bar-charm').style.width = (charm / 3 * 100) + '%';
+
+  // ── Reverse ──
+  let rev = 0;
+  ['rv1','rv2','rv3'].forEach(id => { if (document.getElementById(id).checked) rev += 1; });
+  document.getElementById('score-reverse').textContent = rev;
+  document.getElementById('disp-reverse').textContent = '-' + rev;
+  document.getElementById('bar-reverse').style.width = (rev / 3 * 100) + '%';
+
+  // ── Total ──
+  const total = focus + basic + pro + resp + bonus + charm - rev;
+  const grade = getGrade(total);
+  const gradeClass = getGradeClass(total);
+
+  document.getElementById('totalScoreDisp').textContent = total;
+  document.getElementById('totalGradeDisp').textContent = grade;
+  document.getElementById('totalGradeDisp').className = 't-grade ' + gradeClass;
+
+  document.getElementById('liveScore').textContent = total;
+  document.getElementById('liveBadge').textContent = grade;
+  document.getElementById('liveBadge').className = 'grade-badge ' + gradeClass;
+}
+
+function getGrade(score) {
+  if (score >= 90) return 'A+ 級';
+  if (score >= 80) return 'A 級';
+  if (score >= 70) return 'B 級';
+  if (score >= 60) return 'C 級';
+  return 'Z 級';
+}
+
+function getGradeClass(score) {
+  if (score >= 90) return 'grade-Aplus';
+  if (score >= 80) return 'grade-A';
+  if (score >= 70) return 'grade-B';
+  if (score >= 60) return 'grade-C';
+  return 'grade-Z';
+}
+
+// ── 收集所有表單資料 ──
+function collectData() {
+  const inputs = {};
+  document.querySelectorAll('input[type=text], input[type=date], select').forEach(el => {
+    if (el.id) inputs[el.id] = el.value;
+  });
+  document.querySelectorAll('input[type=checkbox]').forEach(el => {
+    if (el.id) inputs[el.id] = el.checked;
+  });
+  document.querySelectorAll('textarea').forEach(el => {
+    if (el.id) inputs[el.id] = el.value;
+  });
+  // 魅力/反轉 的文字描述（無id，用index）
+  const descInputs = [];
+  document.querySelectorAll('.charm-desc-field input').forEach(el => {
+    descInputs.push(el.value);
+  });
+  inputs['_descInputs'] = descInputs;
+  return inputs;
+}
+
+// ── 還原所有表單資料 ──
+function restoreData(data) {
+  Object.entries(data).forEach(([key, val]) => {
+    if (key === '_descInputs') return;
+    const el = document.getElementById(key);
+    if (!el) return;
+    if (el.type === 'checkbox') el.checked = val;
+    else el.value = val;
+  });
+  if (data._descInputs) {
+    const els = document.querySelectorAll('.charm-desc-field input');
+    data._descInputs.forEach((v, i) => { if (els[i]) els[i].value = v; });
+  }
+  calcAll();
+}
+
+// ── Modal 開關 ──
+function showSaveModal() {
+  const data = collectData();
+  document.getElementById('saveTextArea').value = JSON.stringify(data);
+  document.getElementById('saveModal').style.display = 'flex';
+}
+function showLoadModal() {
+  document.getElementById('loadTextArea').value = '';
+  document.getElementById('loadModal').style.display = 'flex';
+}
+function closeModal(id) {
+  document.getElementById(id).style.display = 'none';
+}
+
+// ── 全選並複製 ──
+function selectAndCopy() {
+  const ta = document.getElementById('saveTextArea');
+  ta.select();
+  ta.setSelectionRange(0, 99999);
+  try {
+    const ok = document.execCommand('copy');
+    showToast(ok ? '✅ 已複製！請貼到記事本儲存' : '請手動全選複製上方文字');
+  } catch(e) {
+    showToast('請手動全選複製上方文字');
+  }
+}
+
+// ── 還原資料 ──
+function doLoad() {
+  const txt = document.getElementById('loadTextArea').value.trim();
+  if (!txt) { showToast('⚠️ 請先貼上資料'); return; }
+  try {
+    const data = JSON.parse(txt);
+    restoreData(data);
+    closeModal('loadModal');
+    showToast('✅ 評分資料已還原！');
+  } catch(e) {
+    showToast('❌ 格式錯誤，請貼上正確的儲存資料');
+  }
+}
+
+// ── 產出報告 Modal ──
+function showReportModal() {
+  const storeName = document.getElementById('storeName').value || '—';
+  const storeNum  = document.getElementById('storeNum').value  || '—';
+  const checkDate = document.getElementById('checkDate').value || '—';
+  const inspector = document.getElementById('inspector').value || '—';
+  const dept      = document.getElementById('dept').value      || '—';
+  const district  = document.getElementById('district').value  || '—';
+  const shift     = document.getElementById('shift').value     || '—';
+  const total     = document.getElementById('totalScoreDisp').textContent;
+  const grade     = document.getElementById('totalGradeDisp').textContent;
+
+  const secs = [
+    { label:'重點聚焦', id:'score-focus',    max:40  },
+    { label:'基本項目', id:'score-basic',    max:30  },
+    { label:'專業服務', id:'score-pro',      max:18  },
+    { label:'應對服務', id:'score-response', max:21  },
+    { label:'加分項目', id:'score-bonus',    max:14, plus:true },
+    { label:'魅力服務', id:'score-charm',    max:3,  plus:true },
+    { label:'反轉扣分', id:'score-reverse',  max:3,  minus:true},
+  ];
+
+  const scoreLines = secs.map(s => {
+    const v = parseInt(document.getElementById(s.id).textContent)||0;
+    const prefix = s.plus ? '+' : s.minus ? '-' : '';
+    return `  ${s.label.padEnd(5)}：${prefix}${v} 分（滿分 ${s.minus?'-':''}${s.max} 分）`;
+  }).join('\n');
+
+  const report =
+`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+7-ELEVEn 門市優質服務評分報告
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+門市：${storeName}（店號：${storeNum}）
+營運部：${dept}　區課：${district}
+查核日期：${checkDate}　班別：${shift}
+受評人員：${inspector}
+
+【各項目得分】
+${scoreLines}
+
+【總分】${total} 分　【等級】${grade}
+
+A+級：100~90分 / A級：89~80分
+B級：79~70分 / C級：69~60分 / Z級：<60分
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+產出時間：${new Date().toLocaleString('zh-TW')}`;
+
+  document.getElementById('reportContent').textContent = report;
+  document.getElementById('reportModal').style.display = 'flex';
+}
+
+function copyReport() {
+  const text = document.getElementById('reportContent').textContent;
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => showToast('✅ 報告已複製！'));
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta);
+    ta.select(); document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('✅ 報告已複製！');
+  }
+}
+
+// ── Toast 提示 ──
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.style.display = 'block';
+  toast.style.opacity = '1';
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => { toast.style.opacity = '0'; setTimeout(()=>toast.style.display='none',400); }, 2500);
+}
+
+// 點外部關閉 modal
+['saveModal','loadModal','reportModal'].forEach(id => {
+  document.getElementById(id).addEventListener('click', function(e) {
+    if (e.target === this) closeModal(id);
+  });
+});
+
+function printPDF() {
+  // Expand all sections before printing
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('collapsed'));
+  setTimeout(() => window.print(), 150);
+}
+
+// ── 送出到 Google 表單 ──
+function submitToGoogleForm() {
+  // 檢查必填欄位
+  const district  = document.getElementById('district').value.trim();
+  const storeName = document.getElementById('storeName').value.trim();
+  const storeNum  = document.getElementById('storeNum').value.trim();
+  const checkDate = document.getElementById('checkDate').value.trim();
+  const inspector = document.getElementById('inspector').value.trim();
+
+  if (!district || !storeName || !storeNum || !checkDate || !inspector) {
+    showToast('⚠️ 請先填寫：區課、門市、店號、查核日期、受評人員');
+    return;
+  }
+
+  const focusScore    = document.getElementById('score-focus').textContent;
+  const basicScore    = document.getElementById('score-basic').textContent;
+  const proScore      = document.getElementById('score-pro').textContent;
+  const responseScore = document.getElementById('score-response').textContent;
+  const bonusScore    = document.getElementById('score-bonus').textContent;
+  const charmScore    = document.getElementById('score-charm').textContent;
+  const reverseScore  = document.getElementById('score-reverse').textContent;
+  const totalScore    = document.getElementById('totalScoreDisp').textContent;
+  const grade         = document.getElementById('totalGradeDisp').textContent;
+
+  const FORM_ID = '1FAIpQLSek3oHP8AQIvy7gzTKGgrmB7WaVxc5Jl2oJDT0wxYEq0RhNJQ';
+  const BASE_URL = `https://docs.google.com/forms/d/e/${FORM_ID}/formResponse`;
+
+  const params = new URLSearchParams({
+    'entry.1306461473': district,
+    'entry.681393931':  storeName,
+    'entry.533142653':  storeNum,
+    'entry.466396117':  checkDate,
+    'entry.243941986':  inspector,
+    'entry.818420060':  focusScore,
+    'entry.1924481342': basicScore,
+    'entry.985669071':  proScore,
+    'entry.1841849396': responseScore,
+    'entry.623560120':  bonusScore,
+    'entry.816760376':  charmScore,
+    'entry.1321838015': reverseScore,
+    'entry.149225633':  totalScore,
+    'entry.873316982':  grade,
+  });
+
+  // 開新分頁，帶入資料讓使用者確認後送出
+  const url = BASE_URL + '?' + params.toString();
+  window.open(url, '_blank');
+  showToast('✅ 已開啟 Google 表單，請按「提交」完成送出！');
+}
+
+// Initialize
+document.getElementById('checkDate').value = new Date().toISOString().split('T')[0];
+calcAll();
+</script>
+</body>
+</html>

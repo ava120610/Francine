@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>7-ELEVEn 門市優質服務評分表 2026年</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Oswald:wght@600&display=swap');
+  @import url('https://apc01.safelinks.protection.outlook.com/?url=https%3A%2F%2Ffonts.googleapis.com%2Fcss2%3Ffamily%3DNoto%2BSans%2BTC%3Awght%40300%3B400%3B500%3B700%3B900%26family%3DOswald%3Awght%40600%26display%3Dswap&data=05%7C02%7Cfrancine%40mail.7-11.com.tw%7C092602bb5337426946c808deb708a642%7Cc7e72dfc052f4dba94bb437e064f1463%7C1%7C1%7C639149444984630458%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C60000%7C%7C%7C&sdata=7KhhAqEirdB3yT0Dv%2B1JkIbpJXXoWgLCISqxaGTl9cw%3D&reserved=0');
 
   :root {
     --green: #007233;
@@ -1248,7 +1248,7 @@
     </div>
   </div>
 
-  <button onclick="submitToGoogleForm()" style="width:100%;padding:18px;background:linear-gradient(135deg,#007233,#00a04e);color:white;border:none;border-radius:12px;font-size:18px;font-weight:900;font-family:inherit;cursor:pointer;letter-spacing:2px;box-shadow:0 6px 20px rgba(0,114,51,0.4);margin-bottom:10px;transition:transform 0.15s">📤 送出評分結果</button>
+  <button onclick="submitToGoogleForm()" style="width:100%;padding:18px;background:linear-gradient(135deg,#007233,#00a04e);color:white;border:none;border-radius:12px;font-size:18px;font-weight:900;font-family:inherit;cursor:pointer;letter-spacing:2px;box-shadow:0 6px 20px rgba(0,114,51,0.4);margin-bottom:10px;transition:transform 0.15s">📤 送出評分結果（開啟表單確認）</button>
   <button onclick="printPDF()" style="width:100%;padding:14px;background:linear-gradient(135deg,#e8001c,#c0001a);color:white;border:none;border-radius:12px;font-size:15px;font-weight:900;font-family:inherit;cursor:pointer;letter-spacing:2px;box-shadow:0 4px 14px rgba(232,0,28,0.35);margin-bottom:10px;transition:transform 0.15s">🖨️ 儲存為 PDF</button>
   <div style="background:#fff8e1;border:1.5px solid #f5a623;border-radius:8px;padding:10px 14px;font-size:12px;color:#7a4f00;line-height:1.7;margin-bottom:10px">
     📌 <strong>儲存PDF步驟：</strong>按下按鈕後，在列印視窗中<br>
@@ -1604,7 +1604,7 @@ function submitToGoogleForm() {
   const grade         = document.getElementById('totalGradeDisp').textContent;
 
   const FORM_ID = '1FAIpQLSek3oHP8AQIvy7gzTKGgrmB7WaVxc5Jl2oJDT0wxYEq0RhNJQ';
-  const BASE_URL = `https://docs.google.com/forms/d/e/${FORM_ID}/formResponse`;
+  const BASE_URL = `https://apc01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fdocs.google.com%2Fforms%2Fd%2Fe%2F%24&data=05%7C02%7Cfrancine%40mail.7-11.com.tw%7C092602bb5337426946c808deb708a642%7Cc7e72dfc052f4dba94bb437e064f1463%7C1%7C1%7C639149444984666866%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C60000%7C%7C%7C&sdata=VbYkbZrrlJSaQUO%2BqXGZOEaxwxgZ5kVAYP9hjQ4DqUU%3D&reserved=0{FORM_ID}/formResponse`;
 
   const params = new URLSearchParams({
     'entry.1306461473': district,
@@ -1623,36 +1623,10 @@ function submitToGoogleForm() {
     'entry.873316982':  grade,
   });
 
-  // 用隱藏 iframe 送出（避免跳頁）
-  let iframe = document.getElementById('gform-iframe');
-  if (!iframe) {
-    iframe = document.createElement('iframe');
-    iframe.id = 'gform-iframe';
-    iframe.name = 'gform-iframe';
-    iframe.style.display = 'none';
-    document.body.appendChild(iframe);
-  }
-
-  const form = document.createElement('form');
-  form.method = 'POST';
-  form.action = BASE_URL;
-  form.target = 'gform-iframe';
-
-  params.forEach((value, key) => {
-    const input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = key;
-    input.value = value;
-    form.appendChild(input);
-  });
-
-  document.body.appendChild(form);
-  form.submit();
-  document.body.removeChild(form);
-
-  setTimeout(() => {
-    showToast('✅ 評分結果已送出到 Google 表單！');
-  }, 800);
+  // 開新分頁，帶入資料讓使用者確認後送出
+  const url = BASE_URL + '?' + params.toString();
+  window.open(url, '_blank');
+  showToast('✅ 已開啟 Google 表單，請按「提交」完成送出！');
 }
 
 // Initialize
